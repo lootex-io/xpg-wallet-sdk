@@ -1,0 +1,21 @@
+{
+  "name": "xpg-wallet-sdk",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "keywords": [],
+  "homepage": "https://github.com/lootex-io/xpg-wallet-sdk#readme",
+  "bugs": {
+    "url": "https://github.com/lootex-io/xpg-wallet-sdk/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lootex-io/xpg-wallet-sdk.git"
+  },
+  "license": "UNLICENSED",
+  "author": "Xavier Lupin <xavierlupin0418@gmail.com> (https://github.com/xavierlupin)",
+  "main": "index.js",
+  "scripts": {
+    "server": "npx http-server ./docs -c-1"
+  }
+}

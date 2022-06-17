@@ -1,0 +1,21 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-size: 16px;
+}
+
+fieldset {
+  margin-bottom: 1rem;
+}
+
+textarea {
+  outline: none;
+  border: none;
+  width: 100%;
+}

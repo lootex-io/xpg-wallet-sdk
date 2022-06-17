@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./css/main.css" rel="stylesheet" />
+    <title>XPG Wallet SDK</title>
+  </head>
+  <body>
+    <h1>XPG Wallet SDK</h1>
+    <form>
+      <fieldset>
+        <legend>Web3</legend>
+        <button type="button" class="connectMetaMask" disabled>
+          Connect MetaMask
+        </button>
+        <button type="button" class="disconnectMetaMask" disabled>
+          Disconnect MetaMask
+        </button>
+        <p>Chain ID: <span class="chainId"></span></p>
+        <p>Account: <span class="account"></span></p>
+      </fieldset>
+      <fieldset>
+        <legend>Smart Contract</legend>
+        <label
+          >Contract Address:
+          <input
+            type="text"
+            class="contractAddress"
+            readonly
+            value="0x69ce0b804f9c1a882ceb6c00aeb8012779530f94"
+        /></label>
+        <button type="button" class="getOwnedNFTs" disabled>
+          Get Owned NFTs
+        </button>
+      </fieldset>
+      <fieldset>
+        <legend>NFTs</legend>
+        <div class="NFTs"></div>
+      </fieldset>
+      <fieldset>
+        <legend>Log</legend>
+        <textarea class="log" rows="10" readonly></textarea>
+      </fieldset>
+    </form>
+    <script type="module" src="./js/index.js"></script>
+  </body>
+</html>
