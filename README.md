@@ -1,42 +1,77 @@
 # XPG Wallet SDK
 
 ```javascript
-import { Web3Pocket } from './web3pocket'
+import Web3Pocket from './web3pocket.min.js'
 ```
 
 ## Web3Pocket.initialize(config)
 
-config 為 5 個 function，分別用來處理 MetaMask 安裝，換鏈，換帳號，錯誤處理
+初始化
 
 ```javascript
-window.addEventListener('DOMContentLoaded', async () => {
-  await Web3Pocket.initialize({
-    handleMetaMaskInstall,
-    handleMetaMaskNotInstall,
-    handleChainChanged,
-    handleAccountsChanged,
-    handleErrorMessage,
+function handleMetaMaskInitialized(isInstall) {}
+function handleQubicInitialized(isSuccess) {}
+function handleProviderChanged(providerName) {}
+function handleChainChanged(chainId) {}
+function handleAccountsChanged(accounts) {}
+function handleProviderEventsUpdated(action) {}
+function handleErrorMessage(error) {}
+
+window.addEventListener('DOMContentLoaded', () => {
+  Web3Pocket.initialize({
+    INFURA_PROJECT_ID, // Qubic 需要用到，請到infura.io註冊申請，省略會無法使用Qubic
+    DEFAULT_CHAIN_ID, // 測試預設 0x4
+    handleMetaMaskInitialized, // 處理瀏覽器有無安裝 MetaMask
+    handleQubicInitialized, // 處理 Qubic 有無初始化成功
+    handleProviderChanged, // 處理 MetaMask 和 Qubic 之間的切換
+    handleChainChanged, // 處理 Chain 的切換
+    handleAccountsChanged, // 處理 Account 的切換
+    handleProviderEventsUpdated, // 處以上述兩個事件，測試開發用，可以省略
+    handleErrorMessage, // 處理各種 Error
   })
 })
 ```
 
 ## Web3Pocket.connectMetaMask(handleConnectMetaMask)
 
-錢包連線
+切換到 MetaMask
 
 ```javascript
-button.connectMetaMask.addEventListener('click', async (event) => {
+button.connectMetaMask.addEventListener('click', async event => {
+  // isConnect 判斷是否正在使用任意一個錢包
+  // isQubicVaild 判斷 Qubic 是否能夠使用
+  function handleConnectMetaMask(isConnect, isQubicVaild) {}
+
   await Web3Pocket.connectMetaMask(handleConnectMetaMask)
 })
 ```
 
-## Web3Pocket.disconnectMetaMask(handleDisconnectMetaMask)
+## Web3Pocket.connectQubic(handleConnectQubic)
 
-錢包斷線
+切換到 Qubic
 
 ```javascript
-button.disconnectMetaMask.addEventListener('click', async (event) => {
-  await Web3Pocket.disconnectMetaMask(handleDisconnectMetaMask)
+button.connectQubic.addEventListener('click', async event => {
+  // isConnect 判斷是否正在使用任意一個錢包
+  // isMetaMaskInstalled 判斷 MetaMask 有無安裝
+  function handleConnectQubic(isConnect, isMetaMaskInstalled) {}
+
+  await Web3Pocket.connectQubic(handleConnectQubic)
+})
+```
+
+
+## Web3Pocket.disconnectWallet(handleDisconnectWallet)
+
+切斷 MetaMask 和 Qubic
+
+```javascript
+button.disconnectWallet.addEventListener('click', event => {
+  // isMetaMaskInstalled 判斷 MetaMask 有無安裝
+  // isQubicVaild 判斷 Qubic 是否能夠使用
+  function handleDisconnectWallet(isMetaMaskInstalled, isQubicVaild) {}
+
+  Web3Pocket.disconnectWallet(handleDisconnectWallet)
 })
 ```
 
