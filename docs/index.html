@@ -12,6 +12,8 @@
     <form>
       <fieldset>
         <legend>Web3</legend>
+        <p>Chain ID: <span class="chainId"></span></p>
+        <p>Account: <span class="account"></span></p>
         <button type="button" class="connectMetaMask" disabled>
           Connect MetaMask
         </button>
@@ -21,30 +23,34 @@
         <button type="button" class="disconnectWallet" disabled>
           Disconnect Wallet
         </button>
-        <p>Chain ID: <span class="chainId"></span></p>
-        <p>Account: <span class="account"></span></p>
       </fieldset>
       <fieldset>
         <legend>Smart Contract</legend>
-        <label
-          >Contract Address:
-          <input
-            type="text"
-            class="contractAddress"
-            readonly
-            value="0x491062f879a0677d4be5560106c3d31e9f0a2101"
-        /></label>
+        <p>BlanceOf: <span class="balanceOf"></span></p>
+        <p>
+          <label
+            >Contract Address:
+            <input
+              type="text"
+              class="contractAddress"
+              readonly
+              value="0x491062f879a0677d4be5560106c3d31e9f0a2101"
+          /></label>
+        </p>
+        <button type="button" class="getBalanceOf" disabled>
+          Get BalanceOf
+        </button>
         <button type="button" class="getOwnedNFTs" disabled>
           Get Owned NFTs
         </button>
       </fieldset>
       <fieldset>
-        <legend>NFTs</legend>
-        <div class="NFTs"></div>
-      </fieldset>
-      <fieldset>
         <legend>Log</legend>
         <textarea class="log" rows="10" readonly></textarea>
+      </fieldset>
+      <fieldset>
+        <legend>NFTs</legend>
+        <div class="NFTs"></div>
       </fieldset>
     </form>
     <script type="module" src="./js/index.js"></script>

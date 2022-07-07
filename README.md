@@ -75,13 +75,22 @@ button.disconnectWallet.addEventListener('click', event => {
 })
 ```
 
-## Web3Pocket.getOwnedNFTsByContract(contractAddress, renderNFT)
+## Web3Pocket.getBalanceOfByContract(contractAddress)
 
-回傳值為全部的 NFT，可以選擇等全部 NFT 抓取完再 Render，或者，帶入第二個 function，個別 Render
+取得擁有的 NFT 數量
 
 ```javascript
-const NFTs = await Web3Pocket.getOwnedNFTsByContract(contractAddress, (NFT) => {
-  log(`${NFT.id} ${NFT.data.name}`)
-  elements.div.NFTs.appendChild(divNode(NFT))
-})
+const length = await Web3Pocket.getBalanceOfByContract(contractAddress)
+```
+
+## Web3Pocket.getOwnedNFTsByContract(contractAddress, renderNFT)
+
+回傳值 NFTs 為包含全部 NFT 的陣列，當NFT數量過多時，建議帶入 renderNFT，對 單獨 NFT 做 render
+
+```javascript
+function renderNFT(NFT) {
+  console.log(`${NFT.id} ${NFT.data.name}`)
+}
+
+const NFTs = await Web3Pocket.getOwnedNFTsByContract(contractAddress, renderNFT)
 ```

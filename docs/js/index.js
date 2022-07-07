@@ -8,6 +8,7 @@ const elements = {
     connectMetaMask: null,
     connectQubic: null,
     disconnectWallet: null,
+    getBalanceOf: null,
     getOwnedNFTs: null,
   },
   div: {
@@ -19,6 +20,7 @@ const elements = {
   span: {
     chainId: null,
     account: null,
+    balanceOf: null,
   },
   textarea: {
     log: null,
@@ -32,12 +34,27 @@ const DOM = {
     button.connectMetaMask = document.querySelector('button.connectMetaMask')
     button.connectQubic = document.querySelector('button.connectQubic')
     button.disconnectWallet = document.querySelector('button.disconnectWallet')
+    button.getBalanceOf = document.querySelector('button.getBalanceOf')
     button.getOwnedNFTs = document.querySelector('button.getOwnedNFTs')
     div.NFTs = document.querySelector('div.NFTs')
     input.contractAddress = document.querySelector('input.contractAddress')
     span.chainId = document.querySelector('span.chainId')
     span.account = document.querySelector('span.account')
+    span.balanceOf = document.querySelector('span.balanceOf')
     textarea.log = document.querySelector('textarea.log')
+    button.getBalanceOf.addEventListener('click', async event => {
+      const contractAddress = elements.input.contractAddress.value
+
+      try {
+        DOM.log('Get BalanceOf...')
+
+        const length = await Web3Pocket.getBalanceOfByContract(contractAddress)
+
+        span.balanceOf.innerHTML = length
+      } catch(error) {
+        handleErrorMessage(error)
+      }
+    })
     button.getOwnedNFTs.addEventListener('click', async event => {
       const contractAddress = elements.input.contractAddress.value
 
@@ -52,9 +69,9 @@ const DOM = {
       }
 
       try {
-        DOM.log('Get Owned NFTs')
-        DOM.log('Loading...')
+        DOM.log('Get Owned NFTs...')
         elements.div.NFTs.innerHTML = ''
+
         const NFTs = await Web3Pocket.getOwnedNFTsByContract(contractAddress, NFT => {
           DOM.log(`${NFT.id} ${NFT.data.name}`)
           elements.div.NFTs.appendChild(divNode(NFT))
@@ -73,9 +90,11 @@ const DOM = {
         if (isQubicVaild) button.connectQubic.disabled = false
 
         button.disconnectWallet.disabled = true
+        button.getBalanceOf.disabled = true
         button.getOwnedNFTs.disabled = true
         span.chainId.innerHTML = ''
         span.account.innerHTML = ''
+        span.balanceOf.innerHTML = ''
         DOM.log('Disconnect')
       }
 
@@ -102,6 +121,7 @@ function handleMetaMaskInitialized(isInstall) {
           button.connectMetaMask.disabled = true
           if (isQubicVaild) button.connectQubic.disabled = false
           button.disconnectWallet.disabled = false
+          button.getBalanceOf.disabled = false
           button.getOwnedNFTs.disabled = false
           DOM.log('MetaMask connect success')
         } else {
@@ -128,6 +148,7 @@ function handleQubicInitialized(isSuccess) {
           if (isMetaMaskInstalled) button.connectMetaMask.disabled = false
           button.connectQubic.disabled = true
           button.disconnectWallet.disabled = false
+          button.getBalanceOf.disabled = false
           button.getOwnedNFTs.disabled = false
           DOM.log('Qubic connect success')
         } else {
