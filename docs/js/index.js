@@ -15,6 +15,7 @@ const elements = {
     NFTs: null,
   },
   input: {
+    customAccount: null,
     contractAddress: null,
   },
   span: {
@@ -37,18 +38,20 @@ const DOM = {
     button.getBalanceOf = document.querySelector('button.getBalanceOf')
     button.getOwnedNFTs = document.querySelector('button.getOwnedNFTs')
     div.NFTs = document.querySelector('div.NFTs')
+    input.customAccount = document.querySelector('input.customAccount')
     input.contractAddress = document.querySelector('input.contractAddress')
     span.chainId = document.querySelector('span.chainId')
     span.account = document.querySelector('span.account')
     span.balanceOf = document.querySelector('span.balanceOf')
     textarea.log = document.querySelector('textarea.log')
     button.getBalanceOf.addEventListener('click', async event => {
+      const customAccount = elements.input.customAccount.value
       const contractAddress = elements.input.contractAddress.value
 
       try {
         DOM.log('Get BalanceOf...')
 
-        const length = await Web3Pocket.getBalanceOfByContract(contractAddress)
+        const length = await Web3Pocket.getBalanceOfByContract(contractAddress, customAccount)
 
         span.balanceOf.innerHTML = length
       } catch(error) {
@@ -56,6 +59,7 @@ const DOM = {
       }
     })
     button.getOwnedNFTs.addEventListener('click', async event => {
+      const customAccount = elements.input.customAccount.value
       const contractAddress = elements.input.contractAddress.value
 
       function divNode(NFT) {
@@ -75,7 +79,7 @@ const DOM = {
         const NFTs = await Web3Pocket.getOwnedNFTsByContract(contractAddress, NFT => {
           DOM.log(`${NFT.id} ${NFT.data.name}`)
           elements.div.NFTs.appendChild(divNode(NFT))
-        })
+        }, customAccount)
 
         console.log(NFTs)
       } catch (error) {

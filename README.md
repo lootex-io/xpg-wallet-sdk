@@ -37,7 +37,7 @@ window.addEventListener('DOMContentLoaded', () => {
 切換到 MetaMask
 
 ```javascript
-button.connectMetaMask.addEventListener('click', async event => {
+button.connectMetaMask.addEventListener('click', async (event) => {
   // isConnect 判斷是否正在使用任意一個錢包
   // isQubicVaild 判斷 Qubic 是否能夠使用
   function handleConnectMetaMask(isConnect, isQubicVaild) {}
@@ -51,7 +51,7 @@ button.connectMetaMask.addEventListener('click', async event => {
 切換到 Qubic
 
 ```javascript
-button.connectQubic.addEventListener('click', async event => {
+button.connectQubic.addEventListener('click', async (event) => {
   // isConnect 判斷是否正在使用任意一個錢包
   // isMetaMaskInstalled 判斷 MetaMask 有無安裝
   function handleConnectQubic(isConnect, isMetaMaskInstalled) {}
@@ -60,13 +60,12 @@ button.connectQubic.addEventListener('click', async event => {
 })
 ```
 
-
 ## Web3Pocket.disconnectWallet(handleDisconnectWallet)
 
 切斷 MetaMask 和 Qubic
 
 ```javascript
-button.disconnectWallet.addEventListener('click', event => {
+button.disconnectWallet.addEventListener('click', (event) => {
   // isMetaMaskInstalled 判斷 MetaMask 有無安裝
   // isQubicVaild 判斷 Qubic 是否能夠使用
   function handleDisconnectWallet(isMetaMaskInstalled, isQubicVaild) {}
@@ -85,7 +84,7 @@ const length = await Web3Pocket.getBalanceOfByContract(contractAddress)
 
 ## Web3Pocket.getOwnedNFTsByContract(contractAddress, renderNFT)
 
-回傳值 NFTs 為包含全部 NFT 的陣列，當NFT數量過多時，建議帶入 renderNFT，對 單獨 NFT 做 render
+回傳值 NFTs 為包含全部 NFT 的陣列，當 NFT 數量過多時，建議帶入 renderNFT，對 單獨 NFT 做 render
 
 ```javascript
 function renderNFT(NFT) {
